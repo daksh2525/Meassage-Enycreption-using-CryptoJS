@@ -3,7 +3,7 @@ const SECRET_KEY = "Daksh@Secret#987";
     function encryptAndSave() {
       const input = document.getElementById("userAnswer").value.trim();
       if (!input) {
-        alert("Please enter your answer.");
+        alert("A cursed message is required...");
         return;
       }
 
@@ -12,5 +12,5 @@ const SECRET_KEY = "Daksh@Secret#987";
 
       const resultBox = document.getElementById("result");
       resultBox.style.display = "block";
-      resultBox.innerHTML = `<strong>Encrypted:</strong><br>${encrypted}<br><br><em>Saved securely!</em>`;
+      resultBox.innerHTML = `<strong>Encrypted:</strong><br>${encrypted}<br><br><em>Sealed into the void...</em>`;
     }
