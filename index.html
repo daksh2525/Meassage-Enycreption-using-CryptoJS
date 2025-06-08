@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Secure Personal Answer Form (with Secret Key)</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #121212;
+      color: white;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      background-color: #1e1e1e;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 0 10px #444;
+    }
+
+    textarea {
+      width: 100%;
+      height: 120px;
+      margin-bottom: 1rem;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 1rem;
+      border: none;
+      resize: none;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .output {
+      margin-top: 1rem;
+      word-wrap: break-word;
+      background-color: #2b2b2b;
+      padding: 1rem;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🛡️ Secure Answer Form with Secret Key</h2>
+    <textarea id="userAnswer" placeholder="Type your secret answer here..."></textarea>
+    <button onclick="encryptAndSave()">Encrypt & Save</button>
+    <div id="result" class="output" style="display:none;"></div>
+  </div>
+
+  <script>
+    const SECRET_KEY = "Daksh@Secret#987"; // 💡 Only you and your AI should know this key
+
+    function encryptAndSave() {
+      const input = document.getElementById("userAnswer").value.trim();
+      if (!input) {
+        alert("Please enter your answer.");
+        return;
+      }
+
+      // Encrypt using AES and secret key
+      const encrypted = CryptoJS.AES.encrypt(input, SECRET_KEY).toString();
+
+      // Save to localStorage
+      localStorage.setItem("encryptedUserAnswer", encrypted);
+
+      // Show result
+      document.getElementById("result").style.display = "block";
+      document.getElementById("result").innerHTML = `<strong>Encrypted:</strong><br>${encrypted}<br><br><em>Saved securely!</em>`;
+    }
+
+    // Decryption (optional, just for testing)
+    // const encrypted = localStorage.getItem("encryptedUserAnswer");
+    // const bytes = CryptoJS.AES.decrypt(encrypted, SECRET_KEY);
+    // const decrypted = bytes.toString(CryptoJS.enc.Utf8);
+    // console.log("Decrypted Answer:", decrypted);
+  </script>
+</body>
+</html>
